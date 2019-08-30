@@ -1,13 +1,20 @@
 import { NgModule, ModuleWithProviders, NgZone, InjectionToken } from '@angular/core';
 import { SignalR } from '../services/signalr';
 import { SignalRConfiguration } from '../services/signalr.configuration';
-import { HubConnection } from '@aspnet/signalr';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 const SIGNALR_CONFIGURATION = new InjectionToken<SignalRConfiguration>('SIGNALR_CONFIGURATION');
 
 export function createSignalr(configuration: SignalRConfiguration, zone: NgZone) {
-    return new SignalR(configuration, zone, HubConnection);
+  return new SignalR(configuration, zone, new HubConnectionBuilder());
 }
+
+
+// function  getJConnectionFn(): any {
+//   const hubConnectionFn = (window as any).jQuery.hubConnection;
+//
+//   return hubConnectionFn;
+// }
 
 @NgModule({
     providers: [{
